@@ -1,14 +1,13 @@
-const admin_bypass_key = process.env.ADMIN_KEY_SECRET;
-
-// Define whitelisted users with roles and keys
+// Define whitelisted users with roles
 const users = [
-    { username: "satorunaa", password: "akucantik", role: "admin", key: ADMIN_KEY1 }, // Admin user
-    { username: "ab", password: "cd", role: "user", key: null },
-    { username: "Mahesa Pradita", password: "1eZy", role: "admin", key: ADMIN_KEY2 }
+    { username: "satorunaa", password: "akucantik", role: "Inti OSIS" },
+    { username: "ab", password: "cd", role: "user" },
+    { username: "Mahesa Pradita", password: "1eZy", role: "Inti OSIS" }
     // Add more users as needed
 ];
 
-const userLockSecret = process.env.USER_LOCK; // Assuming you are using Node.js and this script runs in an environment where process.env is available
+// Define the secret key for admin access
+const adminKeySecret = process.env.ADMIN_KEY_SECRET;
 
 window.onload = function() {
     const form = document.getElementById("loginForm");
@@ -18,30 +17,30 @@ window.onload = function() {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
-        // Find the user in the list of users
-        const user = users.find(user => user.username === username);
+        // Check if user is whitelisted
+        const user = users.find(user => user.username === username && user.password === password);
 
         if (user) {
-            // Check if the entered password matches the user's password
-            if (password === user.password) {
-                // Reset failed login attempts
-                user.failedAttempts = 0;
-                // Proceed with login logic
-                alert("Login sukses!");
+            if (user.role === "Inti OSIS") {
+                document.getElementById("adminKeyBox").classList.remove("hidden");
+                document.querySelector('.login-box').style.display = 'none'; // Hide the login box
             } else {
-                // Increment failed login attempts
-                user.failedAttempts++;
-                // Check if the user has reached the threshold of failed attempts
-                if (user.failedAttempts >= 5) {
-                    alert("Akun terkunci, Terlalu banyak login dengan password yang salah.")
-                    user.password = userLockSecret // Set the password to the secret value or a default value
-                } else {
-                    // Notify user about incorrect password
-                    alert("Incorrect password. Please try again.");
-                }
+                document.getElementById("exampleLinksBox").classList.remove("hidden");
+                document.querySelector('.login-box').style.display = 'none'; // Hide the login box
             }
         } else {
-            alert("Invalid username. Please try again.");
+            // Check if the user exists
+            const failedLoginUser = users.find(user => user.username === username);
+            if (failedLoginUser) {
+                failedLoginUser.failedAttempts = (failedLoginUser.failedAttempts || 0) + 1;
+                if (failedLoginUser.failedAttempts >= 3) {
+                    alert("Kesalahan dalam Username atau password terdeteksi 3 kali. Harap periksa kembali informasi Anda.");
+                } else {
+                    alert("Kesalahan dalam Username atau password terdeteksi, Coba lagi.");
+                }
+            } else {
+                alert("Kesalahan dalam Username atau password terdeteksi, Coba lagi.");
+            }
         }
     });
 
@@ -50,7 +49,7 @@ window.onload = function() {
         const adminKey = document.getElementById("adminKeyInput").value;
         const username = document.getElementById("username").value;
         const user = users.find(user => user.username === username);
-        if (user && user.role === "admin" && adminKey === user.key) {
+        if (user && user.role === "Inti OSIS" && adminKey === adminKeySecret) {
             document.getElementById("adminLinksBox").classList.remove("hidden");
             document.getElementById("adminKeyBox").classList.add("hidden"); // Hide the admin key box
         } else {
