@@ -1,10 +1,14 @@
+const admin_bypass_key = process.env.ADMIN_KEY_SECRET;
+
 // Define whitelisted users with roles and keys
 const users = [
-    { username: "satorunaa", password: "akucantik", role: "admin", key: "69Rja2o39M2R0I289T4a410CB" }, // Admin user
+    { username: "satorunaa", password: "akucantik", role: "admin", key: ADMIN_KEY1 }, // Admin user
     { username: "ab", password: "cd", role: "user", key: null },
-    { username: "Mahesa Pradita", password: "1eZy", role: "admin", key: "21w3PdXjxXbDuumQT2dQaln97" }
+    { username: "Mahesa Pradita", password: "1eZy", role: "admin", key: ADMIN_KEY2 }
     // Add more users as needed
 ];
+
+const userLockSecret = process.env.USER_LOCK; // Assuming you are using Node.js and this script runs in an environment where process.env is available
 
 window.onload = function() {
     const form = document.getElementById("loginForm");
@@ -14,19 +18,30 @@ window.onload = function() {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
-        // Check if user is whitelisted
-        const user = users.find(user => user.username === username && user.password === password);
+        // Find the user in the list of users
+        const user = users.find(user => user.username === username);
 
         if (user) {
-            if (user.role === "admin") {
-                document.getElementById("adminKeyBox").classList.remove("hidden");
-                document.querySelector('.login-box').style.display = 'none'; // Hide the login box
+            // Check if the entered password matches the user's password
+            if (password === user.password) {
+                // Reset failed login attempts
+                user.failedAttempts = 0;
+                // Proceed with login logic
+                alert("Login sukses!");
             } else {
-                document.getElementById("exampleLinksBox").classList.remove("hidden");
-                document.querySelector('.login-box').style.display = 'none'; // Hide the login box
+                // Increment failed login attempts
+                user.failedAttempts++;
+                // Check if the user has reached the threshold of failed attempts
+                if (user.failedAttempts >= 5) {
+                    alert("Akun terkunci, Terlalu banyak login dengan password yang salah.")
+                    user.password = userLockSecret // Set the password to the secret value or a default value
+                } else {
+                    // Notify user about incorrect password
+                    alert("Incorrect password. Please try again.");
+                }
             }
         } else {
-            alert("Invalid username or password. Please try again.");
+            alert("Invalid username. Please try again.");
         }
     });
 
