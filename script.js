@@ -1,13 +1,10 @@
-// Define whitelisted users with roles
+// Define whitelisted users with roles, passwords, and keys
 const users = [
-    { username: "satorunaa", password: "akucantik", role: "Inti OSIS" },
-    { username: "ab", password: "cd", role: "user" },
-    { username: "Mahesa Pradita", password: "1eZy", role: "Inti OSIS" }
+    { username: "satorunaa", password: "akucantik", role: "Inti OSIS", key: "69Rja2o39M2R0I289T4a410CB", failedAttempts: 0, lastFailedAttemptTime: null }, // Admin user
+    { username: "ab", password: "cd", role: "user", key: null, failedAttempts: 0, lastFailedAttemptTime: null },
+    { username: "Mahesa Pradita", password: "1eZy", role: "Inti OSIS", key: "21w3PdXjxXbDuumQT2dQaln97", failedAttempts: 0, lastFailedAttemptTime: null }
     // Add more users as needed
 ];
-
-// Define the secret key for admin access
-const adminKeySecret = process.env.ADMIN_KEY_SECRET;
 
 window.onload = function() {
     const form = document.getElementById("loginForm");
@@ -29,17 +26,19 @@ window.onload = function() {
                 document.querySelector('.login-box').style.display = 'none'; // Hide the login box
             }
         } else {
-            // Check if the user exists
-            const failedLoginUser = users.find(user => user.username === username);
-            if (failedLoginUser) {
-                failedLoginUser.failedAttempts = (failedLoginUser.failedAttempts || 0) + 1;
-                if (failedLoginUser.failedAttempts >= 3) {
-                    alert("Kesalahan dalam Username atau password terdeteksi 3 kali. Harap periksa kembali informasi Anda.");
-                } else {
+            // Increment failed login attempts and set last failed attempt time
+            const failedUser = users.find(user => user.username === username);
+            if (failedUser) {
+                failedUser.failedAttempts++;
+                if (failedUser.failedAttempts >= 3) {
+                    const currentTime = new Date();
+                    if (!failedUser.lastFailedAttemptTime || (currentTime - failedUser.lastFailedAttemptTime) >= 30000) {
+                        alert("Terlalu banyak percobaan login yang gagal, Sistem UL233 telah aktif. Silakan coba lagi nanti.");
+                        failedUser.lastFailedAttemptTime = currentTime;
+                    }
+                }   else {
                     alert("Kesalahan dalam Username atau password terdeteksi, Coba lagi.");
                 }
-            } else {
-                alert("Kesalahan dalam Username atau password terdeteksi, Coba lagi.");
             }
         }
     });
@@ -49,7 +48,7 @@ window.onload = function() {
         const adminKey = document.getElementById("adminKeyInput").value;
         const username = document.getElementById("username").value;
         const user = users.find(user => user.username === username);
-        if (user && user.role === "Inti OSIS" && adminKey === adminKeySecret) {
+        if (user && user.role === "admin" && adminKey === user.key) {
             document.getElementById("adminLinksBox").classList.remove("hidden");
             document.getElementById("adminKeyBox").classList.add("hidden"); // Hide the admin key box
         } else {
