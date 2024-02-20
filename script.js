@@ -48,7 +48,7 @@ window.onload = function() {
         const adminKey = document.getElementById("adminKeyInput").value;
         const username = document.getElementById("username").value;
         const user = users.find(user => user.username === username);
-        if (user && user.role === "admin" && adminKey === user.key) {
+        if (user && user.role === "Inti OSIS" && adminKey === user.key) {
             document.getElementById("adminLinksBox").classList.remove("hidden");
             document.getElementById("adminKeyBox").classList.add("hidden"); // Hide the admin key box
         } else {
