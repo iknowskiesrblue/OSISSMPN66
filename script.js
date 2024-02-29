@@ -1,5 +1,5 @@
 // Secret key value holder
-const secretKey = process.env.ADMIN_SECRET_KEY
+const secretKey = process.env.ADMIN_KEY_SECRET
 
 // Define whitelisted users with roles, passwords, and keys
 const users = [
