@@ -1,8 +1,11 @@
+// Secret key value holder
+const secretKey = process.env.ADMIN_KEY_SECRET
+
 // Define whitelisted users with roles, passwords, and keys
 const users = [
-    { username: "satorunaa", password: "akucantik", role: "Inti OSIS", key: process.env.ADMIN_SECRET_KEY, failedAttempts: 0, lastFailedAttemptTime: null }, // Admin user
+    { username: "satorunaa", password: "akucantik", role: "Inti OSIS", key: secretKey, failedAttempts: 0, lastFailedAttemptTime: null }, // Admin user
     { username: "ab", password: "cd", role: "user", key: null, failedAttempts: 0, lastFailedAttemptTime: null },
-    { username: "Mahesa Pradita", password: "1eZy", role: "Inti OSIS", key: process.env.ADMIN_SECRET_KEY, failedAttempts: 0, lastFailedAttemptTime: null }
+    { username: "Mahesa Pradita", password: "1eZy", role: "Inti OSIS", key: secretKey, failedAttempts: 0, lastFailedAttemptTime: null }
     // Add more users as needed
 ];
 
