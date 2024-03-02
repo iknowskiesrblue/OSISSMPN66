@@ -23,5 +23,5 @@ jobs:
 
     - name: Run script with secret
       env:
-        ADMIN_KEY_SECRET: ${{ secrets.ADMIN_KEY_SECRET }}
+        ADMIN_KEY_HOLDER: ${{ secrets.ADMIN_KEY_SECRET }}
       run: node script.js
