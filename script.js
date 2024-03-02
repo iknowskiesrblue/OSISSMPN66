@@ -1,4 +1,4 @@
-const secretKey = process.env.ADMIN_KEY_SECRET;
+const secretKey = .ADMIN_KEY_SECRET;
 
 
 // Define whitelisted users with roles, passwords, and keys
