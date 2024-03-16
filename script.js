@@ -1,8 +1,14 @@
 // Define whitelisted users with roles, passwords, and keys
 const users = [
-    { username: "satorunaa", password: "akucantik", role: "Inti OSIS", key: "69Rja2o39M2R0I289T4a410CB", failedAttempts: 0, lastFailedAttemptTime: null }, // Admin user
-    { username: "ab", password: "cd", role: "user", key: null, failedAttempts: 0, lastFailedAttemptTime: null },
-    { username: "Mahesa Pradita", password: "1eZy", role: "Inti OSIS", key: "21w3PdXjxXbDuumQT2dQaln97", failedAttempts: 0, lastFailedAttemptTime: null }
+    // Inti OSIS
+    { username: "satorunaa", password: "akucantik", role: "Inti OSIS", key: "69Rja2o39M2R0I289T4a410CB", failedAttempts: 0, lastFailedAttemptTime: null },
+    { username: "hesa", password: "ketoswell", role: "Inti OSIS", key: "21w3PdXjxXbDuumQT2dQaln97", failedAttempts: 0, lastFailedAttemptTime: null },
+    { username: "syahid", password: "sidanton", role: "Inti OSIS", key: "uXSrbAr7xG40PhNxTG5wp7yA0", failedAttempts: 0, lastFailedAttemptTime: null },
+    { username: "lia", password: "pacarsidanton", role: "Inti OSIS", key: "TGAsmeRO2OfcsGzEeVLqUK1BI", failedAttempts: 0, lastFailedAttemptTime: null },
+    { username: "kayla", password: "pcriko", role: "Inti OSIS", key: "aCwvLc0xwRT3VY4xABI45vqvd", failedAttempts: 0, lastFailedAttemptTime: null },
+    // Anggota osis
+    { username: "arshil", password: "sipalingketuapikr", role: "user", ley: null, failedAttempts: 0, lastFailedAttemptTime: null },
+
     // Add more users as needed
 ];
 
