@@ -7,7 +7,7 @@ const users = [
     { username: "lia", password: "pacarsidanton", role: "Inti OSIS", key: "TGAsmeRO2OfcsGzEeVLqUK1BI", failedAttempts: 0, lastFailedAttemptTime: null },
     { username: "kayla", password: "pcriko", role: "Inti OSIS", key: "aCwvLc0xwRT3VY4xABI45vqvd", failedAttempts: 0, lastFailedAttemptTime: null },
     // Anggota osis
-    { username: "OSISSMPN66", password: "juIqxZfTWjfSxBOrMjjH", role: "user", ley: null, failedAttempts: 0, lastFailedAttemptTime: null }
+    { username: "OSISSMPN66", password: "juIqxZfTWjfSxBOrMjjH", role: "user", key: null, failedAttempts: 0, lastFailedAttemptTime: null }
 
     // Add more users as needed
 ];
